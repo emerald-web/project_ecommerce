@@ -2,21 +2,21 @@
 
 ## Executive Summary
 
-**The Challenge:** An e-commerce operation processing 50,000+ daily transactions across 1,200+ products was drowning in data chaos—fragmented sources, 3-day reporting cycles, 15% error rates in manual processing, and no single source of truth. Business decisions were based on stale data, promotional adjustments came too late, and analysts spent 20+ hours weekly on manual data wrangling instead of strategic analysis.
+**The Challenge:** An e-commerce operation processing 50,000+ daily transactions across 1,200+ products was drowning in data chaos, fragmented sources, 3-day reporting cycles, 15% error rates in manual processing, and no single source of truth. Business decisions were based on stale data, promotional adjustments came too late, and analysts spent 20+ hours weekly on manual data wrangling instead of strategic analysis.
 
 **The Solution:** Built an end-to-end automated data platform on Databricks that transforms raw CSV files into real-time business intelligence. The platform leverages Unity Catalog for governance, Delta Lake for reliability, Genie AI for natural language analytics, and automated pipelines for zero-touch operations.
 
 **The Impact:**
-- 💰 **$640K-2.1M Annual ROI** from faster decisions, optimized inventory, and reduced stockouts
-- ⚡ **Real-Time Insights**: 3-day reporting lag eliminated → live dashboards updated daily
-- 🎯 **100% Automation**: Zero manual intervention, 99.9% pipeline uptime
-- 📊 **Self-Service Analytics**: Ad-hoc query time dropped from 2-3 hours → 30 seconds
-- 🔒 **Data Quality**: Error rate reduced from 15% → <1% through automated validation
-- 💡 **Team Productivity**: 20 hours/week freed from manual tasks → strategic projects
+-  **$640K-2.1M Annual ROI** from faster decisions, optimized inventory, and reduced stockouts
+-  **Real-Time Insights**: 3-day reporting lag eliminated → live dashboards updated daily
+-  **100% Automation**: Zero manual intervention, 99.9% pipeline uptime
+-  **Self-Service Analytics**: Ad-hoc query time dropped from 2-3 hours → 30 seconds
+-  **Data Quality**: Error rate reduced from 15% → <1% through automated validation
+-  **Team Productivity**: 20 hours/week freed from manual tasks → strategic projects
 
 ---
 
-## 1️⃣ Data Engineering: Modern Architecture Powered by Databricks
+## 1 Data Engineering: Modern Architecture Powered by Databricks
 
 ### The Transformation
 
