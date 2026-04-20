@@ -96,7 +96,7 @@
 
 Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to enable natural language queries across all 16 tables—no SQL required. Business users ask questions in plain English and get instant answers with visualizations.
 
-![Genie Interface](Docs/genie interface.png)
+![Genie Interface](Docs/genie_interface.png)
 *Genie Space: Ask questions in natural language, get instant SQL-powered answers*
 
 ### How Genie Transformed Analytics
@@ -113,16 +113,16 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - Executives ask questions during meetings and see results immediately
 - Self-service analytics reduces data team dependency by 75%
 
-![Genie Query Examples](Docs/genie query.png)
+![Genie Query Examples](Docs/genie_query.png)
 *Sample queries: currency volumes, monthly revenue patterns, product performance by category/brand, channel comparison, and customer geography*
 
 ### Real Analysis of What We Achieved
 
 **Exploratory Data Analysis (EDA) Acceleration:**
-- ⏱️ **Time Reduction**: Ad-hoc analysis dropped from 2-3 hours (write SQL, debug, validate) → **30 seconds** (ask question in plain English)
-- 📈 **Self-Service Adoption**: 12 business users now run their own queries (previously 100% dependent on data team)
-- 🔍 **Query Complexity**: Genie handles multi-table joins, aggregations, time-based calculations automatically
-- 🎯 **Accuracy**: RAG reads from data catalog documentation for context-aware responses (understands business definitions)
+-  **Time Reduction**: Ad-hoc analysis dropped from 2-3 hours (write SQL, debug, validate) → **30 seconds** (ask question in plain English)
+-  **Self-Service Adoption**: 12 business users now run their own queries (previously 100% dependent on data team)
+-  **Query Complexity**: Genie handles multi-table joins, aggregations, time-based calculations automatically
+-  **Accuracy**: RAG reads from data catalog documentation for context-aware responses (understands business definitions)
 
 **Business Questions Answered Instantly:**
 - How many transactions were made in USD currency?
@@ -134,10 +134,10 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - What's the average revenue per region?
 
 **Business Impact:**
-- 🚀 **Analyst Productivity**: Data team freed from 15-20 ad-hoc requests/week → Focus on ML models and strategic projects
-- 💡 **Faster Decision-Making**: Executives get instant answers during meetings (no 24-hour turnaround)
-- 📊 **Data Literacy**: Non-technical stakeholders explore data independently, ask better questions, discover insights
-- 💰 **Cost Avoidance**: Self-service reduces need for additional analyst headcount ($150K+ annual savings)
+-  **Analyst Productivity**: Data team freed from 15-20 ad-hoc requests/week → Focus on ML models and strategic projects
+-  **Faster Decision-Making**: Executives get instant answers during meetings (no 24-hour turnaround)
+-  **Data Literacy**: Non-technical stakeholders explore data independently, ask better questions, discover insights
+-  **Cost Avoidance**: Self-service reduces need for additional analyst headcount ($150K+ annual savings)
 
 **Technical Achievement:**
 - Connected all 16 tables (5 Bronze, 6 Silver, 4 Gold) to Genie space
@@ -150,7 +150,7 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 
 ---
 
-## 3️⃣ Data Visualization: Executive Dashboards for Decision-Making
+## 3 Data Visualization: Executive Dashboards for Decision-Making
 
 ### From Data to Insights
 
