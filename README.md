@@ -34,24 +34,11 @@
 - Incremental processing (80% compute savings vs full refresh)
 - Scalable foundation supporting 10x transaction growth
 
-![Architecture Diagram](./images/architecture_medallion.png)
-*Medallion Architecture: Bronze (Raw) → Silver (Quality) → Gold (Business-Ready)*
+![Architecture Diagram](Docs/databricks_architecture.png)
+*E-Commerce Intelligence Pipeline: Customer Orders → Data Capture → Cloud Storage → Databricks Processing → Executive Dashboards & Reports*
 
-### Architecture Highlights
 
-**Unity Catalog Governance:**
-- **1 Catalog** (`ecommerce`) with centralized access control
-- **4 Schemas**: `source_data` (raw files), `bronze` (ingestion), `silver` (quality), `gold` (analytics)
-- **16 Tables**: 13 dimensions + 3 fact tables, all fully documented
-- **Complete Lineage**: Track data from CSV → Bronze → Silver → Gold → Dashboard
-
-**Delta Lake Foundation:**
-- ACID transactions ensure data consistency during concurrent writes
-- Time travel enables auditing and rollback (retain 30 days history)
-- Optimized storage with Z-ordering on key columns (40% faster queries)
-- Schema evolution handles source data changes without pipeline failures
-
-![Unity Catalog Structure](./images/unity_catalog_structure.png)
+**Unity Catalog Structure**
 *Unity Catalog: ecommerce.bronze / ecommerce.silver / ecommerce.gold schemas*
 
 **Medallion Design Pattern:**
@@ -61,6 +48,12 @@
 | **Bronze** | 6 tables (5 dim + 1 fact) | Raw ingestion with audit trails | All fields as strings, add `_source_file`, `ingested_at` metadata |
 | **Silver** | 6 tables (5 dim + 1 fact) | Data quality & standardization | Deduplication, type conversion, spelling fixes, format standardization |
 | **Gold** | 4 tables (3 dim + 1 fact) | Business-ready analytics | Denormalization, metric calculations, multi-currency conversion |
+
+**Delta Lake Foundation:**
+- ACID transactions ensure data consistency during concurrent writes
+- Time travel enables auditing and rollback (retain 30 days history)
+- Optimized storage with Z-ordering on key columns (40% faster queries)
+- Schema evolution handles source data changes without pipeline failures
 
 ### Real Analysis of What We Achieved
 
@@ -78,29 +71,26 @@
 - ✅ **Automated Validation**: Built-in checks catch bad data at Bronze ingestion before propagating downstream
 
 **Processing Efficiency:**
-- ⚡ **Processing Time**: 3-day manual cycle → 3-4 minute automated pipeline
-- ⚡ **Incremental Loads**: Only process new/changed records (80% compute time savings, 70% cost reduction)
-- ⚡ **Scalability**: Architecture tested with 50K daily transactions, designed to handle 500K+ without code changes
-- ⚡ **Parallel Processing**: Dimension and fact pipelines run concurrently (further time savings)
+-  **Processing Time**: 3-day manual cycle → 3-4 minute automated pipeline
+-  **Incremental Loads**: Only process new/changed records (80% compute time savings, 70% cost reduction)
+-  **Scalability**: Architecture tested with 50K daily transactions, designed to handle 500K+ without code changes
+-  **Parallel Processing**: Dimension and fact pipelines run concurrently (further time savings)
 
 **Governance & Auditability:**
-- 📋 **Complete Audit Trail**: Every record tracked with `_source_file`, `ingested_at`, `processed_time` timestamps
-- 📋 **Data Lineage**: Unity Catalog tracks transformations from source CSV → Bronze → Silver → Gold → Dashboard queries
-- 📋 **Access Control**: Role-based permissions (Finance sees all data, regional managers see their regions only)
-- 📋 **Compliance Ready**: 30-day time travel enables regulatory reporting and historical analysis
+-  **Complete Audit Trail**: Every record tracked with `_source_file`, `ingested_at`, `processed_time` timestamps
+-  **Data Lineage**: Unity Catalog tracks transformations from source CSV → Bronze → Silver → Gold → Dashboard queries
+-  **Access Control**: Role-based permissions (Finance sees all data, regional managers see their regions only)
+-  **Compliance Ready**: 30-day time travel enables regulatory reporting and historical analysis
 
 **Business Value Delivered:**
-- 💰 **$640K-2.1M Annual ROI**: From improved inventory decisions, faster promotional adjustments, reduced stockouts due to data-driven insights
-- 🎯 **100% Automation**: Zero manual intervention in daily data pipeline operations
-- 📊 **Single Source of Truth**: All stakeholders (executives, marketing, operations, finance) query same governed datasets
-- 🔒 **Data Trust**: Error rate dropped from 15% → <1%, increasing confidence in analytics
-
-![Data Quality Dashboard](./images/data_quality_metrics.png)
-*Before/After: Error rates, processing time, and data freshness improvements*
+-  **$640K-2.1M Annual ROI**: From improved inventory decisions, faster promotional adjustments, reduced stockouts due to data-driven insights
+-  **100% Automation**: Zero manual intervention in daily data pipeline operations
+-  **Single Source of Truth**: All stakeholders (executives, marketing, operations, finance) query same governed datasets
+-  **Data Trust**: Error rate dropped from 15% → <1%, increasing confidence in analytics
 
 ---
 
-## 2️⃣ Data Analytics: AI-Powered Exploration with Genie
+## 2 Data Analytics: AI-Powered Exploration with Genie
 
 ### Democratizing Data Access
 
@@ -124,7 +114,7 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - Self-service analytics reduces data team dependency by 75%
 
 ![Genie Query Examples](./images/genie_queries.png)
-*Sample queries: Revenue analysis, product performance, channel comparison, coupon effectiveness*
+*Sample queries: currency volumes, monthly revenue patterns, product performance by category/brand, channel comparison, and customer geography*
 
 ### Real Analysis of What We Achieved
 
@@ -135,12 +125,13 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - 🎯 **Accuracy**: RAG reads from data catalog documentation for context-aware responses (understands business definitions)
 
 **Business Questions Answered Instantly:**
-- "What are the top 10 products by revenue this month?"
-- "Show me weekend vs weekday sales performance by channel"
-- "Which categories have the highest average order value?"
-- "What's the impact of coupons on net amount across regions?"
-- "Compare Q4 2024 vs Q4 2023 revenue by brand"
-- "Which customers have lifetime value over $10,000?"
+- How many transactions were made in USD currency?
+- What is the total revenue (in INR) and number of order lines by month for 2025? Show a monthly trend chart.
+- Show the top 10 products by revenue (in INR) for the month of August. Include category and brand.
+- What was the biggest single revenue day in this period, and what product segments drove it?
+- Average revenue per customer by channel (Website vs Mobile) across each month.
+- What is the distribution of customers by country?
+- What's the average revenue per region?
 
 **Business Impact:**
 - 🚀 **Analyst Productivity**: Data team freed from 15-20 ad-hoc requests/week → Focus on ML models and strategic projects
