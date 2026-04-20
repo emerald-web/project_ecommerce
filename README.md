@@ -145,7 +145,7 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - Genie reads from [data catalog](./Docs/data_catalog.md) documentation for business context
 - Query results can be exported, shared, or built into dashboards
 
-![Genie Results Visualization](Docs/Revenue by Category on Peak Day (Aug 30, 2025).png)
+![Genie Results Visualization](Docs/RevenueBy_Category.png)
 *Genie automatically generates charts from query results (Revenue by Category on Peak Day)*
 
 ---
