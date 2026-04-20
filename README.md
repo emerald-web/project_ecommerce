@@ -58,17 +58,17 @@
 ### Real Analysis of What We Achieved
 
 **Data Quality Improvements:**
-- ✅ **100% Duplicate Elimination**: Deduplication on primary keys (product_id, customer_id, order_id) across all Silver tables
-- ✅ **Inconsistent Format Resolution**: 
+-  **100% Duplicate Elimination**: Deduplication on primary keys (product_id, customer_id, order_id) across all Silver tables
+-  **Inconsistent Format Resolution**: 
   - "500g" → 500, "1.2kg" → 1200 (weight standardization)
   - "$49.99" → 49.99, "€35.00" → 35.00 (currency parsing)
   - "15%" → 15.0, "7.5%" → 7.5 (percentage normalization)
   - "Two" → 2, "Three" → 3 (text-to-number conversion)
-- ✅ **Data Correction at Scale**:
+-  **Data Correction at Scale**:
   - Fixed negative week numbers in calendar (recalculated using `weekofyear()`)
   - Standardized channel names: "web" → "Website", "app" → "Mobile", "store" → "Retail"
   - Corrected spelling errors: "Coton" → "Cotton", "Alumium" → "Aluminum"
-- ✅ **Automated Validation**: Built-in checks catch bad data at Bronze ingestion before propagating downstream
+-  **Automated Validation**: Built-in checks catch bad data at Bronze ingestion before propagating downstream
 
 **Processing Efficiency:**
 -  **Processing Time**: 3-day manual cycle → 3-4 minute automated pipeline
@@ -96,7 +96,7 @@
 
 Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to enable natural language queries across all 16 tables—no SQL required. Business users ask questions in plain English and get instant answers with visualizations.
 
-![Genie Interface](./images/genie_interface.png)
+![Genie Interface](Docs/genie interface.png)
 *Genie Space: Ask questions in natural language, get instant SQL-powered answers*
 
 ### How Genie Transformed Analytics
@@ -113,7 +113,7 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - Executives ask questions during meetings and see results immediately
 - Self-service analytics reduces data team dependency by 75%
 
-![Genie Query Examples](./images/genie_queries.png)
+![Genie Query Examples](Docs/genie query.png)
 *Sample queries: currency volumes, monthly revenue patterns, product performance by category/brand, channel comparison, and customer geography*
 
 ### Real Analysis of What We Achieved
@@ -145,8 +145,8 @@ Built **Ecommerce Genie Space** with RAG (Retrieval Augmented Generation) to ena
 - Genie reads from [data catalog](./Docs/data_catalog.md) documentation for business context
 - Query results can be exported, shared, or built into dashboards
 
-![Genie Results Visualization](./images/genie_results_viz.png)
-*Genie automatically generates charts from query results (bar, line, pie, scatter)*
+![Genie Results Visualization](Docs/Revenue by Category on Peak Day (Aug 30, 2025).png)
+*Genie automatically generates charts from query results (Revenue by Category on Peak Day)*
 
 ---
 
