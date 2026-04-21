@@ -337,7 +337,7 @@ Our dashboard answers the three questions every executive asks:
 
 ---
 
-## 4️⃣ Data Operations: Automated Pipelines & Orchestration
+## 4 Data Operations: Automated Pipelines & Orchestration
 
 ### Set-It-And-Forget-It Automation
 
@@ -381,50 +381,29 @@ Built **dimension_processing Job** for daily incremental loads running Bronze �
 ### Real Analysis of What We Achieved
 
 **Operational Excellence:**
-- ✅ **100% Success Rate**: Last 50+ runs completed successfully (avg runtime: 3 min 30 sec)
-- ✅ **Zero Manual Intervention**: Automated daily since deployment (60+ consecutive successful runs, 2+ months)
-- ✅ **Dependency Management**: Tasks execute in correct order (Bronze → Silver → Gold), entire job fails safely if upstream task errors
-- ✅ **Serverless Compute**: No cluster management overhead, auto-scales based on data volume (70% cost savings vs always-on cluster)
+-  **100% Success Rate**: Last 50+ runs completed successfully (avg runtime: 3 min 30 sec)
+-  **Zero Manual Intervention**: Automated daily since deployment (60+ consecutive successful runs, 2+ months)
+-  **Dependency Management**: Tasks execute in correct order (Bronze → Silver → Gold), entire job fails safely if upstream task errors
+-  **Serverless Compute**: No cluster management overhead, auto-scales based on data volume (70% cost savings vs always-on cluster)
 
 ![Job Run History](./images/job_run_history.png)
 *Recent runs: 100% success rate, consistent 3-4 minute runtimes*
 
 **Incremental Load Strategy:**
-- 🔄 **Incremental Processing**: Only process new/changed records (not full table refresh)
+-  **Incremental Processing**: Only process new/changed records (not full table refresh)
   - Bronze: Reads only new CSV files based on filename timestamp pattern
   - Silver: Processes only new Bronze records using `ingested_at > last_processed_time`
   - Gold: Updates only affected dimensions based on Silver changes
-- 🔄 **Efficiency Gains**: Reduces processing time by 80%+ (3 min vs 15+ min for full refresh)
-- 🔄 **Cost Optimization**: Pay only for records processed, not entire dataset (70% cost reduction)
-- 🔄 **Scalability**: Handles daily data growth without runtime degradation
+-  **Efficiency Gains**: Reduces processing time by 80%+ (3 min vs 15+ min for full refresh)
+-  **Cost Optimization**: Pay only for records processed, not entire dataset (70% cost reduction)
+-  **Scalability**: Handles daily data growth without runtime degradation
 
 **Monitoring & Reliability:**
-- 📧 **Email Alerts**: Configured on failure (zero alerts triggered since production launch)
-- 📊 **Run History Tracking**: Monitor execution time trends, data volume processed, error rates
-- 🔁 **Retry Logic**: Automatic retry on transient failures (max 3 attempts with exponential backoff)
-- 🛡️ **Fail-Safe Design**: Downstream tasks don't run if upstream fails (prevents bad data propagation)
+-  **Email Alerts**: Configured on failure (zero alerts triggered since production launch)
+-  **Run History Tracking**: Monitor execution time trends, data volume processed, error rates
+-  **Retry Logic**: Automatic retry on transient failures (max 3 attempts with exponential backoff)
+-  **Fail-Safe Design**: Downstream tasks don't run if upstream fails (prevents bad data propagation)
 
-![Pipeline Monitoring](./images/pipeline_monitoring.png)
-*Monitoring dashboard: Runtime trends, data volume processed, success rates over time*
-
-**Parallel Processing (Future Enhancement):**
-- Current: Dimension processing (5 tables) runs sequentially in one job
-- Fact processing (order_items) runs in separate job (can run in parallel)
-- Future: Split dimension tables into parallel tasks (reduce runtime from 3 min → 1.5 min)
-
-**Business Impact:**
-- 🌅 **Data Freshness**: Yesterday's transactions available by 6 AM next day (was 3-day lag)
-  - Example: Friday sales data available Saturday morning for weekend planning
-  - Marketing team adjusts Saturday campaigns based on Friday performance
-- 💰 **Cost Savings**: Serverless + incremental = 70% lower compute costs vs always-on clusters
-  - Old approach: $500/month for dedicated clusters running 24/7
-  - New approach: $150/month for serverless compute (only pay for 3-4 min/day runtime)
-- 🛡️ **Reliability**: Zero data pipeline failures in production (99.9%+ uptime)
-  - On-call escalations reduced from 4-5/month → 0
-  - Weekend support duty eliminated (pipelines "just work")
-- 🔧 **Scalability**: Same pipeline handles 50K or 500K daily transactions without code changes
-  - Load tested with 10x simulated data volume (runtime: 5 min vs 3 min baseline)
-  - No infrastructure changes needed to support business growth
 
 **Operational Metrics:**
 
@@ -439,116 +418,56 @@ Built **dimension_processing Job** for daily incremental loads running Bronze �
 
 ---
 
-## 📁 Project Structure & Documentation
-
-```
-project_ecommerce/
-├── README.md                        # ← You are here (business-focused overview)
-│
-├── images/                          # Architecture diagrams, screenshots
-│   ├── architecture_medallion.png
-│   ├── unity_catalog_structure.png
-│   ├── data_quality_metrics.png
-│   ├── genie_interface.png
-│   ├── genie_queries.png
-│   ├── dashboard_overview.png
-│   ├── dashboard_sales_page.png
-│   ├── job_configuration.png
-│   └── job_run_history.png
-│
-├── Docs/
-│   ├── data_catalog.md             # 6-section comprehensive guide
-│   │                                # - Table inventory (16 tables)
-│   │                                # - Column dictionary (50+ key columns)
-│   │                                # - Business metrics glossary
-│   │                                # - Sample SQL queries for common use cases
-│   └── naming_convention.md        # Standards for tables, columns, notebooks
-│                                    # - Unity Catalog structure (catalog.schema.table)
-│                                    # - Table naming (brz_*, slv_*, gld_dim_*, gld_fact_*)
-│                                    # - Column naming (suffixes: _id, _date, _amount, _flag)
-│
-├── 1_setup/
-│   └── E-commerce setup.ipynb      # Unity Catalog initialization
-│                                    # - Create catalog: ecommerce
-│                                    # - Create schemas: source_data, bronze, silver, gold
-│                                    # - Set permissions (read/write access)
-│
-├── 2_medallion_processing_dim/
-│   ├── 1_dim_bronze.ipynb          # Dimension ingestion (5 tables)
-│   │                                # - Ingest: brands, category, products, customers, calendar
-│   │                                # - All fields as strings (handle format issues)
-│   │                                # - Add audit: _source_file, ingested_at
-│   ├── 2_dim_silver.ipynb          # Quality transformations
-│   │                                # - Deduplication on primary keys
-│   │                                # - Type conversions (string → int/float/date)
-│   │                                # - Spelling corrections, standardization
-│   └── 3_dim_gold.ipynb            # Dimension enrichment
-│                                    # - Denormalize: product + brand + category names
-│                                    # - Add calculated fields: is_weekend flag
-│                                    # - Create surrogate keys where needed
-│
-└── 3_medallion_processing_fact/
-    ├── 1_fact_bronze.ipynb         # Fact ingestion (1 table)
-    │                                # - Ingest: order_items transactions
-    │                                # - Handle: quantity="Two", price="$49.99"
-    ├── 2_fact_silver.ipynb         # Fact transformations
-    │                                # - Type conversions: string → numeric
-    │                                # - Standardize: channel names, date formats
-    └── 3_fact_gold.ipynb           # Metrics calculation
-                                     # - Calculate: gross_amount, discount_amount, net_amount
-                                     # - Multi-currency: 7 currencies → INR
-                                     # - Pre-aggregate: daily/weekly/monthly summaries
-```
 
 **Documentation Highlights:**
-- ✅ Every notebook has business-focused Cell 1 markdown explaining **WHY** (business value), not just **HOW** (technical steps)
-- ✅ [Data Catalog](./Docs/data_catalog.md) documents all 16 tables with business definitions, transformation logic, sample queries
-- ✅ [Naming Conventions](./Docs/naming_convention.md) ensure consistency across 6 notebooks, 16 tables, 50+ columns
-- ✅ Inline comments in notebooks explain business logic (e.g., "CEIL for discount rounding per company policy")
+-  Every notebook has business-focused Cell 1 markdown explaining **WHY** (business value), not just **HOW** (technical steps)
+-  [Data Catalog](./Docs/data_catalog.md) documents all 16 tables with business definitions, transformation logic, sample queries
+-  [Naming Conventions](./Docs/naming_convention.md) ensure consistency across 6 notebooks, 16 tables, 50+ columns
+-  Inline comments in notebooks explain business logic (e.g., "CEIL for discount rounding per company policy")
 
 ---
 
 ## 💼 Skills & Technologies Demonstrated
 
 ### Data Engineering
-- ✅ **Medallion Architecture**: Designed and implemented 3-layer Bronze/Silver/Gold pattern with clear separation of concerns
-- ✅ **ETL/ELT Pipelines**: Built scalable pipelines processing 50K+ daily transactions with 99.9% reliability
-- ✅ **Data Quality Frameworks**: Implemented validation, deduplication, type conversion, standardization at scale
-- ✅ **Incremental Load Strategies**: Optimized pipelines to process only new/changed data (80% efficiency gain)
-- ✅ **Performance Optimization**: Z-ordering, partitioning, Delta optimization for 40% faster queries
+-  **Medallion Architecture**: Designed and implemented 3-layer Bronze/Silver/Gold pattern with clear separation of concerns
+-  **ETL/ELT Pipelines**: Built scalable pipelines processing 50K+ daily transactions with 99.9% reliability
+-  **Data Quality Frameworks**: Implemented validation, deduplication, type conversion, standardization at scale
+-  **Incremental Load Strategies**: Optimized pipelines to process only new/changed data (80% efficiency gain)
+-  **Performance Optimization**: Z-ordering, partitioning, Delta optimization for 40% faster queries
 
 ### Analytics Engineering
-- ✅ **Dimensional Modeling**: Star schema with 13 dimensions + 3 fact tables optimized for BI queries
-- ✅ **Business Metrics Calculation**: Defined and implemented revenue formulas (gross, discount, net amounts)
-- ✅ **Multi-Currency Conversion**: Handled 7 currencies → INR base with daily exchange rates
-- ✅ **Pre-Aggregation**: Built summary tables for query performance (daily/weekly/monthly rollups)
-- ✅ **Data Governance**: Established naming conventions, data catalog, audit trails
+-  **Dimensional Modeling**: Star schema with 13 dimensions + 3 fact tables optimized for BI queries
+-  **Business Metrics Calculation**: Defined and implemented revenue formulas (gross, discount, net amounts)
+-  **Multi-Currency Conversion**: Handled 7 currencies → INR base with daily exchange rates
+-  **Pre-Aggregation**: Built summary tables for query performance (daily/weekly/monthly rollups)
+-  **Data Governance**: Established naming conventions, data catalog, audit trails
 
 ### Business Intelligence
-- ✅ **Dashboard Design**: Created executive dashboards for decision-making (sales, marketing, operations)
-- ✅ **KPI Definition & Tracking**: Defined key metrics (revenue, AOV, CLV, items per order, coupon effectiveness)
-- ✅ **Self-Service Analytics**: Enabled business users to explore data independently (Genie + dashboards)
-- ✅ **Data Storytelling**: Translated technical solutions into business outcomes ($640K-2.1M ROI)
-- ✅ **Visualization Best Practices**: Chose appropriate chart types, color schemes, interactivity for user needs
+-  **Dashboard Design**: Created executive dashboards for decision-making (sales, marketing, operations)
+-  **KPI Definition & Tracking**: Defined key metrics (revenue, AOV, CLV, items per order, coupon effectiveness)
+-  **Self-Service Analytics**: Enabled business users to explore data independently (Genie + dashboards)
+-  **Data Storytelling**: Translated technical solutions into business outcomes ($640K-2.1M ROI)
+-  **Visualization Best Practices**: Chose appropriate chart types, color schemes, interactivity for user needs
 
 ### Databricks Platform
-- ✅ **Unity Catalog**: Governance, access control, lineage tracking across 16 tables
-- ✅ **Delta Lake**: ACID transactions, time travel (30-day retention), schema evolution
-- ✅ **Genie (RAG)**: Natural language analytics with 16-table integration
-- ✅ **Lakeview Dashboards**: Interactive visualizations with Unity Catalog integration
-- ✅ **Jobs & Orchestration**: Serverless workflows, dependency management, monitoring, alerting
-- ✅ **Serverless Compute**: Auto-scaling, cost optimization (70% savings vs dedicated clusters)
+-  **Unity Catalog**: Governance, access control, lineage tracking across 16 tables
+-  **Delta Lake**: ACID transactions, time travel (30-day retention), schema evolution
+-  **Genie (RAG)**: Natural language analytics with 16-table integration
+-  **Lakeview Dashboards**: Interactive visualizations with Unity Catalog integration
+-  **Jobs & Orchestration**: Serverless workflows, dependency management, monitoring, alerting
+-  **Serverless Compute**: Auto-scaling, cost optimization (70% savings vs dedicated clusters)
 
 ### Business Acumen
-- ✅ **ROI Quantification**: Translated technical architecture into measurable business value ($640K-2.1M annually)
-- ✅ **Stakeholder Management**: Built solutions for executives, marketing, operations, finance (different needs)
-- ✅ **Operational Efficiency**: Identified and eliminated bottlenecks (3-day lag → real-time, 20 hrs/week → 0)
-- ✅ **Problem-Solving**: Diagnosed root causes (data quality issues) and implemented systematic solutions
-- ✅ **Documentation**: Created comprehensive guides for onboarding, operations, and governance
+-  **ROI Quantification**: Translated technical architecture into measurable business value ($640K-2.1M annually)
+-  **Stakeholder Management**: Built solutions for executives, marketing, operations, finance (different needs)
+-  **Operational Efficiency**: Identified and eliminated bottlenecks (3-day lag → real-time, 20 hrs/week → 0)
+-  **Problem-Solving**: Diagnosed root causes (data quality issues) and implemented systematic solutions
+-  **Documentation**: Created comprehensive guides for onboarding, operations, and governance
 
 ---
 
-## 📊 Key Business Metrics Tracked
+##  Key Business Metrics Tracked
 
 ### Revenue Metrics (Gold Layer Calculations)
 ```sql
@@ -639,14 +558,15 @@ net_amount_inr = net_amount × currency_rate  -- Supports 7 currencies
 
 ---
 
-## 📧 Contact & Project Links
+##  Contact
+### Connect With Me
 
-### Project Artifacts
-- 📖 [Data Catalog](./Docs/data_catalog.md) - 6-section guide: table inventory, column dictionary, metrics glossary, sample queries
-- 📋 [Naming Conventions](./Docs/naming_convention.md) - Standards for tables, columns, notebooks ensuring consistency
-- 🤖 [Ecommerce Genie Space](#genie-01f0eb16bd4f138f93f2bc0a52e818e5) - Natural language analytics (ask questions, get answers)
-- 📊 [Ecommerce Dashboard](#dashboard-01f0eb1e39b91301a4bab9a680556461) - Executive reporting (sales, marketing, operations)
-- ⚙️ [dimension_processing Job](#job-21578787321264) - Automated daily pipeline (Bronze → Silver → Gold)
+**LinkedIn:** [Emmanuel Okenwa](https://www.linkedin.com/in/emmanuel-okenwa/)
+
+**Email:** greatemmanuel78@gmail.com
+
+**GitHub Repository:** [E-Commerce Data Platform Project](https://github.com/emerald-web/project_ecommerce)
+
 
 ### Platform & Technologies
 **Built on Databricks** | **Powered by Unity Catalog, Delta Lake, Genie, Lakeview, Serverless Compute**
