@@ -343,7 +343,7 @@ Our dashboard answers the three questions every executive asks:
 
 Built **dimension_processing Job** for daily incremental loads running Bronze → Silver → Gold transformations automatically with zero manual intervention and 99.9% reliability.
 
-![Job Configuration](./images/job_configuration.png)
+![Job Configuration](Docs/task_job.png)
 *Job: dimension_processing with 3-task sequential workflow and dependency management*
 
 ### Pipeline Architecture
@@ -375,7 +375,7 @@ Built **dimension_processing Job** for daily incremental loads running Bronze �
 
 **Total Pipeline Runtime**: 3-4 minutes (vs 3-day manual process)
 
-![Job Dependency Graph](./images/job_dependency_graph.png)
+![Job Dependency Graph](Docs/job_sucess.png)
 *Task dependency flow: Bronze → Silver → Gold with fail-safe logic*
 
 ### Real Analysis of What We Achieved
@@ -386,7 +386,7 @@ Built **dimension_processing Job** for daily incremental loads running Bronze �
 -  **Dependency Management**: Tasks execute in correct order (Bronze → Silver → Gold), entire job fails safely if upstream task errors
 -  **Serverless Compute**: No cluster management overhead, auto-scales based on data volume (70% cost savings vs always-on cluster)
 
-![Job Run History](./images/job_run_history.png)
+![Job Run History](Docs/job_history.png)
 *Recent runs: 100% success rate, consistent 3-4 minute runtimes*
 
 **Incremental Load Strategy:**
