@@ -1,8 +1,8 @@
-# E-Commerce Data Platform: From Data Chaos to Real-Time Intelligence
+# NextCart E-Commerce Data Platform: From Data Chaos to Real-Time Intelligence
 
 ## Executive Summary
 
-**The Challenge:** An e-commerce operation processing 50,000+ daily transactions across 1,200+ products was drowning in data chaos, fragmented sources, 3-day reporting cycles, 15% error rates in manual processing, and no single source of truth. Business decisions were based on stale data, promotional adjustments came too late, and analysts spent 20+ hours weekly on manual data wrangling instead of strategic analysis.
+**The Challenge:** NextCart e-commerce operation processing 50,000+ daily transactions across 1,200+ products was drowning in data chaos, fragmented sources, 3-day reporting cycles, 15% error rates in manual processing, and no single source of truth. Business decisions were based on stale data, promotional adjustments came too late, and analysts spent 20+ hours weekly on manual data wrangling instead of strategic analysis.
 
 **The Solution:** Built an end-to-end automated data platform on Databricks that transforms raw CSV files into real-time business intelligence. The platform leverages Unity Catalog for governance, Delta Lake for reliability, Genie AI for natural language analytics, and automated pipelines for zero-touch operations.
 
